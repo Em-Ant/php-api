@@ -6,7 +6,7 @@ use Emant\BrowniePhp\Router;
 use Emant\BrowniePhp\Utils;
 use Emanuele\PhpApi\TokenValidator;
 
-$env = Utils::read_env('../.env');
+$env = Utils::read_env('../cfg.env');
 
 $validator = TokenValidator::createJwksValidator($env['JWKS_URI']);
 
