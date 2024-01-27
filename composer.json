@@ -1,0 +1,21 @@
+{
+    "name": "emanuele/php_api",
+    "description": "test",
+    "type": "project",
+    "require": {
+        "emant/brownie-php": "^0.0.2",
+        "firebase/php-jwt": "^6.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Emanuele\\PhpApi\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "emant",
+            "email": "joshua999x@gmail.com"
+        }
+    ]
+}
