@@ -50,4 +50,4 @@ jobs:
           user: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PWD }}
           localDir: ./dist
-          remoteDir: id
+          remoteDir: /api/v1
