@@ -12,6 +12,13 @@ $validator = TokenValidator::createJwksValidator($env['JWKS_URI']);
 
 $app = new Router();
 
+$cors = function (array $ctx) {
+  $headers = $ctx['headers'];
+  $origin = $headers['origin'];
+  Utils::enable_cors($origin);
+};
+
+$app->use($cors);
 $app->get('/beers', $validator->allowRealmRoles(['admin']), function () {
   $beer = json_decode(
     file_get_contents('https://random-data-api.com/api/v2/beers'),

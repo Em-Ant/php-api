@@ -3,7 +3,7 @@
     "description": "test",
     "type": "project",
     "require": {
-        "emant/brownie-php": "^0.0.2",
+        "emant/brownie-php": "dev-main",
         "firebase/php-jwt": "^6.10"
     },
     "license": "MIT",
