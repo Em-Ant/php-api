@@ -1,11 +1,12 @@
+.vscode/
+
 composer.phar
-/vendor/
 
 .env
 *.env
 
-.vscode/
-
 *.http
 
+/vendor
 logs/
+data/

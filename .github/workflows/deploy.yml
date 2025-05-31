@@ -36,7 +36,11 @@ jobs:
 
       - uses: php-actions/composer@v6
         with:
-          dev: no
+          dev: yes
+
+      - name: create docs
+        run: |
+          composer docs
 
       - name: Create dist folder
         run: |
