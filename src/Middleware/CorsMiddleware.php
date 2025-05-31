@@ -23,10 +23,6 @@ class CorsMiddleware implements MiddlewareInterface
             $response = $handler->handle($request);
         }
 
-        error_log($origin);
-        error_log(print_r($this->allowedOrigins, true));
-
-
         if ($this->isOriginAllowed($origin)) {
             $response = $response
                 ->withHeader('Access-Control-Allow-Origin', $origin)
