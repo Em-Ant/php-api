@@ -40,7 +40,7 @@ jobs:
 
       - name: Create dist folder
         run: |
-          mkdir -p ./dist && cp -r src public vendor dist
+          mkdir -p ./dist && cp -r src public vendor docs dist
           ls dist
 
       - name: Simple FTP deploy

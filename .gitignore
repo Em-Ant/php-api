@@ -1,8 +1,11 @@
 composer.phar
 /vendor/
 
+.env
 *.env
 
 .vscode/
 
 *.http
+
+logs/

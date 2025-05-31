@@ -1,0 +1,98 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Beer API",
+        "description": "A simple beer API with JWT authentication",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api/v1"
+        }
+    ],
+    "paths": {
+        "/beer": {
+            "get": {
+                "tags": [
+                    "Beer"
+                ],
+                "summary": "Get a random beer",
+                "operationId": "015187ffd1e192ada45a8b92faf9df8e",
+                "responses": {
+                    "200": {
+                        "description": "Random beer data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "brand": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "style": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "abv": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "ibu": {
+                                            "type": "integer"
+                                        },
+                                        "srm": {
+                                            "type": "integer"
+                                        },
+                                        "upc": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden - insufficient roles"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Beer",
+            "description": "Beer"
+        }
+    ]
+}
