@@ -94,12 +94,14 @@ class Bootstrap
         );
         $app->add($errorMiddleware);
 
-        // CORS middleware
-        $corsOrigins = explode(',', $_ENV['CORS_ALLOWED_ORIGINS'] ?? '');
-        $app->add(new CorsMiddleware($corsOrigins));
-
         // JWT middleware
         $app->add(new JwtAuthMiddleware($this->container->get(TokenValidator::class)));
+
+        // CORS middleware
+
+        $corsOrigins = $_ENV['CORS_ALLOWED_ORIGINS'] ?? '';
+        $corsOrigins = $corsOrigins != "" ? explode(',', $corsOrigins) : [];
+        $app->add(new CorsMiddleware($corsOrigins));
     }
 
     public function configureRoutes(App $app): void

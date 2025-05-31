@@ -39,8 +39,6 @@ class JwtAuthMiddleware implements MiddlewareInterface
 
         $token = substr($authHeader, 7);
 
-
-
         try {
             $decodedToken = $this->tokenValidator->validateToken($token);
 
