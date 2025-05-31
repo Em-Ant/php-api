@@ -83,6 +83,40 @@ class BeerController
         }
     }
 
+    #[OA\Get(
+        path: "/beers/{id}",
+        summary: "Get beer by ID",
+        security: [["bearerAuth" => []]],
+        tags: ["Beer"]
+    )]
+    #[OA\Parameter(
+        name: "id",
+        description: "Beer ID",
+        in: "path",
+        required: true,
+        schema: new OA\Schema(type: "integer")
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Beer by id",
+        content: new OA\JsonContent(
+            properties: [
+                new OA\Property(property: "id", type: "integer"),
+                new OA\Property(property: "brand", type: "string"),
+                new OA\Property(property: "name", type: "string"),
+                new OA\Property(property: "description", type: "string"),
+                new OA\Property(property: "style", type: "string"),
+                new OA\Property(property: "category", type: "string"),
+                new OA\Property(property: "abv", type: "float"),
+                new OA\Property(property: "ibu", type: "integer"),
+                new OA\Property(property: "srm", type: "integer"),
+                new OA\Property(property: "upc", type: "integer")
+            ]
+        )
+    )]
+    #[OA\Response(response: 401, description: "Unauthorized")]
+    #[OA\Response(response: 403, description: "Forbidden - insufficient roles")]
+    #[OA\Response(response: 500, description: "Internal server error")]
     public function getBeerById(Request $request, Response $response): Response
     {
         try {

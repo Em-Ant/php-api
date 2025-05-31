@@ -16,11 +16,9 @@ use Emanuele\PhpApi\Middleware\JwtAuthMiddleware;
 use Emanuele\PhpApi\Service\TokenValidator;
 use Emanuele\PhpApi\Service\BeerQueryService;
 use Emanuele\PhpApi\Controller\BeerController;
-use Emanuele\PhpApi\Middleware\StaticMiddleware;
 use Emanuele\PhpApi\Repository\BeerRepositoryInterface;
 use Emanuele\PhpApi\Repository\SqlBeerRepository;
 use PDO;
-use Psr\Http\Message\StreamFactoryInterface;
 
 class Bootstrap
 {
@@ -82,11 +80,6 @@ class Bootstrap
             \Psr\Http\Message\StreamFactoryInterface::class,
             new \Slim\Psr7\Factory\StreamFactory()
         );
-
-        $this->container->set(
-            \Psr\Http\Message\StreamFactoryInterface::class,
-            new \Slim\Psr7\Factory\StreamFactory()
-        );
     }
 
     public function configureMiddleware(App $app): void
@@ -109,20 +102,9 @@ class Bootstrap
         $app->add(new JwtAuthMiddleware($this->container->get(TokenValidator::class)));
     }
 
-    public function configureStaticServer(App $app, string $basePath, string $directory): void
-    {
-        $streamFactory = $this->container->get(StreamFactoryInterface::class);
-        $static = new StaticMiddleware(
-            $basePath,
-            $directory,
-            $streamFactory,
-        );
-        $app->add($static);
-    }
-
     public function configureRoutes(App $app): void
     {
-        $app->group('/', function ($group) {
+        $app->group('/api/v1', function ($group) {
             $group->get('/beers/random', [BeerController::class, 'getRandomBeer']);
             $group->get('/beers/{id}', [BeerController::class, 'getBeerById']);
         });

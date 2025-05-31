@@ -21,14 +21,6 @@ $bootstrap->configureServices();
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
-if ($_ENV['APP_ENV'] === 'development') {
-  $bootstrap->configureStaticServer(
-    $app,
-    "/docs",
-    __DIR__ . "/../docs"
-  );
-}
-
 $bootstrap->configureMiddleware($app);
 $bootstrap->configureHealthCheck($app);
 $bootstrap->configureRoutes($app);

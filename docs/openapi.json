@@ -78,6 +78,85 @@
                     }
                 ]
             }
+        },
+        "/beers/{id}": {
+            "get": {
+                "tags": [
+                    "Beer"
+                ],
+                "summary": "Get beer by ID",
+                "operationId": "1184cc1a28e3f48d9c3ebbca244dc20f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Beer ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Beer by id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "brand": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "style": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        },
+                                        "abv": {
+                                            "type": "number",
+                                            "format": "float"
+                                        },
+                                        "ibu": {
+                                            "type": "integer"
+                                        },
+                                        "srm": {
+                                            "type": "integer"
+                                        },
+                                        "upc": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "403": {
+                        "description": "Forbidden - insufficient roles"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
