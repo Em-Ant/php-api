@@ -8,7 +8,7 @@ use Emanuele\PhpApi\Config\Bootstrap;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..', 'cfg.env');
 $dotenv->load();
 
 $container = new Container();

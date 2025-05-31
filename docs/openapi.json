@@ -11,13 +11,13 @@
         }
     ],
     "paths": {
-        "/beer": {
+        "/beers/random": {
             "get": {
                 "tags": [
                     "Beer"
                 ],
                 "summary": "Get a random beer",
-                "operationId": "015187ffd1e192ada45a8b92faf9df8e",
+                "operationId": "3adf9341ffbefe2a6f2df6d0df48532a",
                 "responses": {
                     "200": {
                         "description": "Random beer data",
