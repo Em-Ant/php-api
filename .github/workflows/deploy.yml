@@ -65,7 +65,7 @@ jobs:
           mkdir -p ./dist && cp -r src public docs dist
 
           # Only copy vendor if it changed
-          if [ "$VENDOR_CHANGED" = "true" ]; then
+          if [ "$VENDOR_CHANGED" = "false" ]; then
             echo "Vendor unchanged, skipping..."
           else
             echo "Vendor changed, copying..."
