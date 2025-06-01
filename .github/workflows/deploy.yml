@@ -47,11 +47,20 @@ jobs:
           mkdir -p ./dist && cp -r src public vendor docs dist
           ls dist
 
-      - name: Simple FTP deploy
-        uses: sebastianpopp/ftp-action@releases/v2
-        with:
-          host: ${{ secrets.FTP_HOST }}
-          user: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PWD }}
-          localDir: ./dist
-          remoteDir: /api/v1
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via lftp
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+          FTP_USERNAME: ${{ secrets.FTP_USER }}
+          FTP_PASSWORD: ${{ secrets.FTP_PWD }}
+          LOCAL_DIR: ./dist
+          FTP_DESTINATION: /api/v1
+        run: |
+          echo "Deploying from $LOCAL_DIR to ftp://$FTP_HOST$FTP_DESTINATION"
+          lftp $FTP_HOST -u $FTP_USERNAME,$FTP_PASSWORD -e "\
+            set ftp:ssl-force false; \
+            set ssl:verify-certificate false; \
+            mirror --reverse --continue --dereference --verbose $LOCAL_DIR $FTP_DESTINATION; \
+            quit"

@@ -22,10 +22,10 @@ composer install
 
 2. Copy environment file:
 ```bash
-cp .env.example .env
+cp example.env cfg.env
 ```
 
-3. Configure your environment variables in `.env`
+3. Configure your environment variables in `cfg.env`
 
 4. Create logs directory:
 ```bash
@@ -34,14 +34,14 @@ mkdir logs
 
 5. Start development server:
 ```bash
-php -S localhost:8000 -t public
+php -S localhost:8000 router.php
 ```
 
 ## API Endpoints
 
 - `GET /health` - Health check endpoint
-- `GET /api/v1/beer` - Get random beer (requires admin role)
-- `GET /api/v1/beers` - Alias for /beer endpoint
+- `GET /api/v1/beers/random` - Get random beer
+- `GET /api/v1/beers/{id}` - Get beer by id
 - `GET /docs` - Swagger UI documentation
 - `GET /docs/openapi.json` - OpenAPI specification
 
@@ -64,7 +64,7 @@ For beer endpoints, the token must contain an 'admin' role in the `realm_access.
 - `JWT_ALGORITHM` - JWT algorithm (default: RS256)
 - `LOG_LEVEL` - Logging level (debug/info/warning/error)
 - `LOG_PATH` - Path to log file
-- `CORS_ALLOWED_ORIGINS` - Comma-separated list of allowed CORS origins
+- `CORS_ALLOWED_ORIGINS` - Comma-separated list of allowed CORS origins or *
 
 ## Architecture
 
@@ -72,6 +72,7 @@ The application follows a clean architecture pattern:
 
 - **Controllers** - Handle HTTP requests and responses
 - **Services** - Business logic and external API calls
+- **Repositories** - Business logic and external API calls
 - **Middleware** - Cross-cutting concerns (CORS, Authentication)
 - **Config** - Application bootstrapping and dependency injection
 
