@@ -94,8 +94,6 @@ class Bootstrap
         );
         $app->add($errorMiddleware);
 
-        // JWT middleware
-        $app->add(new JwtAuthMiddleware($this->container->get(TokenValidator::class)));
 
         // CORS middleware
 
@@ -106,15 +104,15 @@ class Bootstrap
 
     public function configureRoutes(App $app): void
     {
-        $app->group('/api/v1', function ($group) {
-            $group->get('/beers/random', [BeerController::class, 'getRandomBeer']);
-            $group->get('/beers/{id}', [BeerController::class, 'getBeerById']);
-        });
-    }
+        $app->group('/api/v1/beers', function ($group) {
+            $group->get('/random', [BeerController::class, 'getRandomBeer']);
+            $group->get('/{id}', [BeerController::class, 'getBeerById']);
+        })->add(new JwtAuthMiddleware(
+            $this->container->get(TokenValidator::class),
+            $this->container->get(LoggerInterface::class)
+        ));
 
-    public function configureHealthCheck(App $app): void
-    {
-        $app->get('/health', function ($request, $response) {
+        $app->get('/api/v1/health', function ($request, $response) {
             $data = [
                 'status' => 'ok',
                 'timestamp' => date('Y-m-d H:i:s'),

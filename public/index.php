@@ -22,8 +22,6 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 
 $bootstrap->configureMiddleware($app);
-$bootstrap->configureHealthCheck($app);
 $bootstrap->configureRoutes($app);
-
 
 $app->run();

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Emanuele\PhpApi\Service;
 
 use Emanuele\PhpApi\Repository\BeerRepositoryInterface;
-use Emanuele\PhpApi\Service\DTO\ResponseBeer;
 use Psr\Log\LoggerInterface;
 
 class BeerQueryService
@@ -15,47 +14,31 @@ class BeerQueryService
         private LoggerInterface $logger
     ) {}
 
-    public function getRandomBeer(): ResponseBeer
+    public function getRandomBeer(): array
     {
         $this->logger->debug('Getting random beer from repository');
 
         try {
             $beer = $this->beerRepository->getRandom();
-            $this->logger->debug('Successfully retrieved beer', ['beer_id' => $beer['id']]);
-            return $this->toResponseBeer($beer);
+            $this->logger->debug('Successfully retrieved random beer', ['beer_id' => $beer['id']]);
+            return $beer;
         } catch (\RuntimeException $e) {
             $this->logger->error('Failed to get random beer', ['error' => $e->getMessage()]);
             throw $e;
         }
     }
 
-    public function getBeerById(string $id): ResponseBeer
+    public function getBeerById(string $id): array
     {
         $this->logger->debug('Getting random beer from repository');
 
         try {
             $beer = $this->beerRepository->getById($id);
-            $this->logger->debug('Successfully retrieved beer', ['beer_id' => $beer['id']]);
-            return $this->toResponseBeer($beer);
+            $this->logger->debug('Successfully retrieved beer by Id', ['beer_id' => $beer['id']]);
+            return $beer;
         } catch (\RuntimeException $e) {
-            $this->logger->error('Failed to get random beer', ['error' => $e->getMessage()]);
+            $this->logger->error('Failed to get beer by Id', ['error' => $e->getMessage()]);
             throw $e;
         }
-    }
-
-    private function toResponseBeer(array $beerData): ResponseBeer
-    {
-        return new ResponseBeer(
-            $beerData['id'],
-            $beerData['name'],
-            $beerData['descript'] === '' ? null : $beerData['descript'],
-            $beerData['brewery'],
-            $beerData['style_name'],
-            $beerData['cat_name'],
-            (float)$beerData['abv'],
-            (int)$beerData['ibu'],
-            (int)$beerData['srm'],
-            (int)$beerData['upc']
-        );
     }
 }

@@ -63,17 +63,17 @@ class BeerController
 
             $beer = $this->beerQueryService->getRandomBeer();
 
-            $this->logger->info('Successfully fetched random beer', [
-                'beer_id' => $beer->getId() ?? null
+            $this->logger->info('Successfully serving random beer', [
+                'beer_id' => $beer['id'] ?? null
             ]);
 
             $response->getBody()->write(json_encode(
-                $beer,
+                ResponseBeer::fromBeerData($beer),
                 JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
             ));
             return $response->withHeader('Content-Type', 'application/json');
         } catch (\Exception $e) {
-            $this->logger->error('Error fetching random beer', ['error' => $e->getMessage()]);
+            $this->logger->error('Error serving random beer', ['error' => $e->getMessage()]);
 
             $error = ['error' => 'Internal server error'];
             $response->getBody()->write(json_encode($error));
@@ -127,19 +127,19 @@ class BeerController
 
             $beer = $this->beerQueryService->getBeerById($id);
 
-            $this->logger->info('Successfully fetched random beer', [
-                'beer_id' => $beer->getId() ?? null
+            $this->logger->info('Successfully serving beer by id', [
+                'beer_id' => $beer['id'] ?? null
             ]);
 
             $response->getBody()->write(
                 json_encode(
-                    $beer,
+                    ResponseBeer::fromBeerData($beer),
                     JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
                 )
             );
             return $response->withHeader('Content-Type', 'application/json');
         } catch (\Exception $e) {
-            $this->logger->error('Error fetching random beer', ['error' => $e->getMessage()]);
+            $this->logger->error('Error serving beer by id', ['error' => $e->getMessage()]);
 
             $error = ['error' => 'Internal server error'];
             $response->getBody()->write(json_encode($error));

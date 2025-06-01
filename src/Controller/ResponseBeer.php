@@ -1,12 +1,12 @@
 <?php
 
-namespace Emanuele\PhpApi\Service\DTO;
+namespace Emanuele\PhpApi\Controller;
 
 use JsonSerializable;
 
 class ResponseBeer implements JsonSerializable
 {
-  public function __construct(
+  private function __construct(
     private int $id,
     private string $name,
     private ?string $description,
@@ -38,5 +38,21 @@ class ResponseBeer implements JsonSerializable
       'srm' => $this->srm,
       'upc' => $this->upc
     ];
+  }
+
+  public static function fromBeerData(array $beerData): ResponseBeer
+  {
+    return new ResponseBeer(
+      $beerData['id'],
+      $beerData['name'],
+      $beerData['descript'] === '' ? null : $beerData['descript'],
+      $beerData['brewery'],
+      $beerData['style_name'],
+      $beerData['cat_name'],
+      (float)$beerData['abv'],
+      (int)$beerData['ibu'],
+      (int)$beerData['srm'],
+      (int)$beerData['upc']
+    );
   }
 }
