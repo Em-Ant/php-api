@@ -29,7 +29,10 @@ class SqlBeerRepository implements BeerRepositoryInterface
             b.*, 
             c.cat_name, 
             s.style_name,
-            br.name AS brewery
+            br.name AS brewery,
+            br.city,
+            br.state,
+            br.country
         FROM beers b
         LEFT JOIN categories c ON b.cat_id = c.id
         LEFT JOIN styles s ON b.style_id = s.id
@@ -63,7 +66,10 @@ class SqlBeerRepository implements BeerRepositoryInterface
             b.*, 
             c.cat_name, 
             s.style_name,
-            br.name AS brewery
+            br.name AS brewery,
+            br.city,
+            br.state,
+            br.country
         FROM beers b
         LEFT JOIN categories c ON b.cat_id = c.id
         LEFT JOIN styles s ON b.style_id = s.id
